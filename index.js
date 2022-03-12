@@ -1,16 +1,14 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
-const jest = require('jest'); 
 
 // Constructors
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
-const { default: generate } = require('@babel/generator');
 
-const generateMarkdown = require('./src/generateMarkdown');
+const generatePage = require('./src/generateMarkdown');
 
 let team = [];
 let addManager = true;
@@ -179,7 +177,10 @@ function addMember() {
                     if (answer.addNew) {
                        return addMember();
                     } else {
-                        generate();
+                        console.log(team);
+                        const template = generatePage(team);
+                        console.log(template)
+                        writeToFile('./dist/index.html', template);
                     }
                 });
             } else {
@@ -203,7 +204,10 @@ function addMember() {
                 if (answer.addNew) {
                     addMember();
                 } else {
-                    generate();
+                    console.log(team);
+                    const template = generatePage(team);
+                    console.log(template)
+                    writeToFile('./dist/index.html', template);
                 };
             });
         } else if (answer.memberType === 'Intern') {
@@ -222,7 +226,10 @@ function addMember() {
                 if(answer.addNew) {
                     addMember();
                 } else {
-                    generate();
+                    console.log(team);
+                    const template = generatePage(team);
+                    console.log(template)
+                    writeToFile('./dist/index.html', template);
                 };
             });
         };
@@ -238,12 +245,3 @@ function writeToFile(fileName, data) {
 }
 
 //Function to initialize app
-function init() {
-    inquirer.prompt(questions)
-    .then((inquirerAnswers) => {
-        console.log("Generating.... Please wait....");
-        writeToFile("./dist/README.md", generateMarkdown({...inquirerAnswers}));
-    })
-}
-
-init();
