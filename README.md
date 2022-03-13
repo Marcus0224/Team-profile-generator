@@ -16,3 +16,5 @@ Enter (Node index) into command-line application that will take in information a
 
 ## Screenshots
 
+## Technology Used
+NPM, Node.js, Jest, Inquirer & Bootstrap 
